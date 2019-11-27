@@ -1,14 +1,51 @@
 from bs4 import BeautifulSoup
 import requests
+import collections
 
-def request_lotto_data(url):
+# get_lotto_cnt function
+#
+# 1. request_lotto_cnt
+# 2. get_lotto_cnt
+# 
+# This functions can get total lotto count from web site
+ 
+def request_lotto_cnt(url):
+    data = {
+        'category' : 'AC01'
+    }
+
+    response = requests.post(url, data=data)
+
+    return response
+
+def get_lotto_cnt():
+    url = 'http://www.lotto.co.kr/lotto_info/list_cnt_ajax'
+
+    response = request_lotto_cnt(url)
+    cnt_json = response.json()
+
+    return int(cnt_json['count'])
+
+# get_lotto_data function
+#
+# 1. request_lotto_data
+# 2. parse_lotto_data
+# 3. get_lotto_data
+#
+# This functions can get total lotto datas from web site
+# 
+# Data Format
+#
+# lotto_numbers = {
+#   lotto_count : [first_num, second_num, ... , seventh_num ],
+#   lotto_count : [first_num, second_num, ... , seventh_num ],
+#   ...
+# }
+
+def request_lotto_data(url, cnt):
     params = {
         'category' : 'AC01',
-        'startPos' : 0,
-        'endPos' : 10,
-        'total' : 884,
-        'page' : 1,
-        'code_type_id' : 2
+        'total' : cnt
     }
 
     response = requests.post(url, params=params)
@@ -19,7 +56,7 @@ def parse_lotto_data(response):
     html = BeautifulSoup(response.text, 'html.parser')
     lotto_list = html.select('li')
 
-    total_numbers = {}
+    lotto_numbers = {}
 
     for lotto in lotto_list:
         title = lotto.select_one('span').text[0:-1]
@@ -31,63 +68,71 @@ def parse_lotto_data(response):
             num_with_png = lotto_num['src'].split('/')[5]
             num = num_with_png.split('.')[0]
 
-            numbers.append(num)
+            numbers.append(int(num))
         
-        total_numbers[title] = numbers
+        lotto_numbers[int(title)] = numbers
     
-    return total_numbers
+    return lotto_numbers
 
-def sum_lotto_data(total_numbers):
-    sum_each_numbers = {}
+def get_lotto_data(cnt):
+    url = 'http://www.lotto.co.kr/lotto_info/list_ajax'
+
+    response = request_lotto_data(url, cnt)
+    lotto_data = parse_lotto_data(response)
+
+    return lotto_data
+
+# lotto data rework functions
+#
+# 1. get_lotto_number_sum
+#       This function can get total sum of each lotto number
+#
+# 2. get_lotto_number_win_count
+#       This function can get win count of each lotto number
+#
+# 3. get_lotto_number_each_win_count
+#       This function ca nget each win count of each lotto number
+
+def get_lotto_number_sum(total_numbers):
+    lotto_number_sum = {}
 
     for numbers in total_numbers.values():
         for number in numbers:
-            if sum_each_numbers.get(number) == None:
-                sum_each_numbers[number] = 1
+            if lotto_number_sum.get(number) == None:
+                lotto_number_sum[number] = 1
             else:
-                sum_each_numbers[number] = sum_each_numbers[number] + 1
+                lotto_number_sum[number] = lotto_number_sum[number] + 1
     
-    return sum_each_numbers
+    return collections.OrderedDict(sorted(lotto_number_sum.items()))
 
-def each_lotto_data(total_numbers):
-    each_numbers = {}
+def get_lotto_number_win_count(total_numbers):
+    lotto_number_win = {}
 
     for count, numbers in total_numbers.items():
         for number in numbers:
-            if each_numbers.get(number) == None:
-                each_numbers[number] = []
-                each_numbers[number].append(count)
+            if lotto_number_win.get(number) == None:
+                lotto_number_win[number] = []
+                lotto_number_win[number].append(count)
             else:
-                each_numbers[number].append(count)
+                lotto_number_win[number].append(count)
     
-    return each_numbers
+    return collections.OrderedDict(sorted(lotto_number_win.items()))
 
-def each_count_lotto_data(total_numbers):
-    each_count_numbers = {}
+def get_lotto_number_each_win_count(total_numbers):
+    lotto_number_each_win = {}
 
     for count, numbers in total_numbers.items():
         for number in numbers:
-            if each_count_numbers.get(number) == None:
-                each_count_numbers[number] = {}
+            if lotto_number_each_win.get(number) == None:
+                lotto_number_each_win[number] = {}
                 
-            each_count_numbers[number][count] = 1
+            lotto_number_each_win[number][count] = 1
         
         for number in range(1, 46):
-            if each_count_numbers.get(str(number)) == None:
-                each_count_numbers[str(number)] = {}
+            if lotto_number_each_win.get(number) == None:
+                lotto_number_each_win[number] = {}
 
-            if each_count_numbers[str(number)].get(count) == None:
-                each_count_numbers[str(number)][count] = 0
+            if lotto_number_each_win[number].get(count) == None:
+                lotto_number_each_win[number][count] = 0
     
-    return each_count_numbers
-
-def get_each_numbers_win_counts():
-    url = 'http://www.lotto.co.kr/lotto_info/list_ajax'
-    response = request_lotto_data(url)
-
-    total_numbers = parse_lotto_data(response)
-    # sum_each_numbers = sum_lotto_data(total_numbers)
-    # each_numbers = each_lotto_data(total_numbers)
-    each_count_numbers = each_count_lotto_data(total_numbers)
-
-    return each_count_numbers
+    return collections.OrderedDict(sorted(lotto_number_each_win.items()))
