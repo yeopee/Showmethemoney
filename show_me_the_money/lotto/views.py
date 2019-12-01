@@ -10,13 +10,14 @@ def index(request):
 #       This function is for testing lotto_data
 
 def lotto_data_test(request):
-    lotto_data = parse_lotto.get_lotto_data(parse_lotto.get_lotto_cnt())
-    
+    lotto_data = parse_lotto.get_all_lotto_data()
+
     lotto_number_sum = parse_lotto.get_lotto_number_sum(lotto_data)
     lotto_number_win_count = parse_lotto.get_lotto_number_win_count(lotto_data)
     lotto_number_each_win_count = parse_lotto.get_lotto_number_each_win_count(lotto_data)
 
     context = {
+        'lotto_data' : lotto_data,
         'lotto_number_sum' : lotto_number_sum,
         'lotto_number_win_count' : lotto_number_win_count,
         'lotto_number_each_win_count' : lotto_number_each_win_count

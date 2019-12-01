@@ -17,6 +17,6 @@ from django.urls import path
 from . import views as lotto_views
 
 urlpatterns = [
-    path('test', lotto_views.lotto_data_test, name='test'),
+    path('test/', lotto_views.lotto_data_test, name='test'),
     path('', lotto_views.index, name='index')
 ]
