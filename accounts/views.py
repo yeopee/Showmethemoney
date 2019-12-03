@@ -47,9 +47,6 @@ def signup(request):
             user_info.user = user
             user_info.save()
 
-            user.info = user_info
-            user.save()
-
             auth_login(request, user)
 
             return redirect('accounts:test')
