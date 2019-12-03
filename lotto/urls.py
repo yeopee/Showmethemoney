@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+
 from django.urls import path
 from . import views as lotto_views
 
@@ -21,5 +22,6 @@ app_name = 'lotto'
 
 urlpatterns = [
     path('test/', lotto_views.lotto_data_test, name='test'),
-    path('', lotto_views.index, name='index')
+    path('', lotto_views.index, name='index'),
+    path('highchart',lotto_views.lotto_data_highchaet, name='highchart')
 ]
