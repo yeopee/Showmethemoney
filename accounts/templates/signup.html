@@ -26,37 +26,44 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<h1><a href="index.html">Minimal </a></h1>
 		<div class="login-bottom">
 			<h2>Register</h2>
+
+			<form action=" {% url 'accounts:signup' %} " method='POST'>
 			<div class="col-md-6">
+				<input type='hidden' name='csrfmiddlewaretoken' value='{{ csrf_token }}'>
+
 				<div class="login-mail">
-					<input type="text" placeholder="Email" required="">
+					<input type="text" name='username' placeholder="Email" required="">
 					<i class="fa fa-envelope"></i>
 				</div>
 				<div class="login-mail">
-					<input type="password" placeholder="Password" required="">
+					<input type="password" name='password1' placeholder="Password" required="">
 					<i class="fa fa-lock"></i>
 				</div>
 				<div class="login-mail">
-					<input type="password" placeholder="Repeated password" required="">
+					<input type="password" name='password2' placeholder="Repeated password" required="">
 					<i class="fa fa-lock"></i>
 				</div>
 				  <a class="news-letter" href="#">
-						 <label class="checkbox1"><input type="checkbox" name="checkbox" ><i> </i>I agree with the terms</label>
-					   </a>
-	
+					<label class="checkbox1"><input type="checkbox" name="checkbox" ><i> </i>I agree with the terms</label>
+				</a>
 			</div>
+
 			<div class="col-md-6 login-do">
 				<label class="hvr-shutter-in-horizontal login-sub">
 					<input type="submit" value="Submit">
-					</label>
-					<p>Already register</p>
-				<a href="signin.html" class="hvr-shutter-in-horizontal">Login</a>
+				</label>
+
+				<p>Already register</p>
+				<a href="{% url 'accounts:signin' %}" class="hvr-shutter-in-horizontal">Login</a>
 			</div>
-			<div class="clearfix"> </div>
+			<div class="clearfix"></div>
+			</form>
 		</div>
 	</div>
 		<!---->
 <div class="copy-right">
-            <p> &copy; 2016 Minimal. All Rights Reserved .</p>	    </div>
+    <p> &copy; 2016 Minimal. All Rights Reserved .</p>
+</div>
 	  
 <!---->
 <!--scrolling js-->

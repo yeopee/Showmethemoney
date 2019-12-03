@@ -23,5 +23,6 @@ app_name = 'lotto'
 urlpatterns = [
     path('test/', lotto_views.lotto_data_test, name='test'),
     path('', lotto_views.index, name='index'),
-    path('highchart',lotto_views.lotto_data_highchaet, name='highchart')
+    path('highchart/',lotto_views.lotto_data_highchaet, name='highchart'),
+    path('test2/', lotto_views.lotto_data_test2, name='test2')
 ]
