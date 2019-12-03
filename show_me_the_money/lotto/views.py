@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponse
 from . import parse_lotto
-
+import json
 # Create your views here.
 
 def index(request):
@@ -22,4 +22,25 @@ def lotto_data_test(request):
         'lotto_number_each_win_count' : lotto_number_each_win_count
     }
 
-    return render(request, 'test/lotto_data.html', context)
+    result =[]
+
+    for tmp in range(1,46):
+        a = lotto_number_sum[tmp]
+
+        one = {
+            'name':tmp,
+            'y':a,
+            'drilldown':tmp
+        }
+
+        result.append(one)
+    
+    context={
+        'result':result
+    }
+    
+    return HttpResponse(json.dumps(context),content_type="application/json")
+
+def lotto_data_highchaet(request):
+
+    return render(request,'test/highchart.html')

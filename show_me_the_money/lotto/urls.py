@@ -18,5 +18,6 @@ from . import views as lotto_views
 
 urlpatterns = [
     path('test', lotto_views.lotto_data_test, name='test'),
-    path('', lotto_views.index, name='index')
+    path('', lotto_views.index, name='index'),
+    path('highchart',lotto_views.lotto_data_highchaet, name='highchart')
 ]
