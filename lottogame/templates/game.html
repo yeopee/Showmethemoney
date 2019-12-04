@@ -1,0 +1,40 @@
+ {% extends 'base.html' %}
+
+{% block style %}
+.container1 > .box1{
+    border:2px ridge;
+    width:1000px;
+    height:300px;
+    margin: 0 auto;
+    margin-top:100px
+ } 
+ .container2 > .box2{
+    border:2px ridge;
+    width:1000px;
+    height:300px;
+    margin: 0 auto;
+    margin-top:100px
+ } 
+ 
+ #abcde {
+     color:red;
+ }
+ 
+{% endblock  %}
+
+ {% block content %}
+<div class="container1">
+    <div class="box1">
+ <h1 id="abcde">여기는 div 1 입니다.</h1>
+ </div>
+</div>
+<div class="container2">
+    <div class="box2">
+<h1>여기는 div 2 입니다. </h1>
+</div>
+</div>
+ {% endblock  %}
+ 
+
+{% block script %}
+{% endblock  %}

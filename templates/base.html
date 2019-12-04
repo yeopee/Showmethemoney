@@ -67,9 +67,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!--//graph-->
 	<script src="{% static 'js/jquery.flot.js' %}"></script>
 
-	<script>
 
-	</script>
 
 
 
@@ -94,8 +92,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<script src="{% static 'js/scripts.js' %}"></script>
 	<!--//scrolling js-->
 	<script src="{% static 'js/bootstrap.min.js' %}"> </script>
+	<style>
     {% block style %}
     {% endblock  %}
+	</style>
 </head>
 
 <body>
@@ -208,19 +208,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div id="page-wrapper" class="gray-bg dashbard-1">
 			<div class="content-main">
 				<!--content-->
-                {% block content %}
+            </div>
+			{% block content %}
                 {% endblock  %}
-
-                {% block script %}
-                {% endblock  %}
-
-
-
-
-
-
-			
-			</div>
 		</div>
 		<div class="copy">
 			<p> &copy; 2016 Minimal. All Rights Reserved .</p>
@@ -229,6 +219,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="clearfix"> </div>
 	</div>
 	</div>
+	<script>
+	   {% block script %}
+        {% endblock  %}
+		</script>
 </body>
 
 </html>
