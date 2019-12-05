@@ -20,7 +20,7 @@ app_name = 'accounts'
 
 urlpatterns = [
     path('test/', accounts_views.accounts_test, name='test'),
-    path('signin/', accounts_views.signin, name='signin'),
+    path('login/', accounts_views.login, name='login'),
     path('signout/', accounts_views.signout, name='signout'),
     path('signup/', accounts_views.signup, name='signup')
 ]
