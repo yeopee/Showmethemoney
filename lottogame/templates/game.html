@@ -1,40 +1,347 @@
  {% extends 'base.html' %}
 
-{% block style %}
-.container1 > .box1{
-    border:2px ridge;
-    width:1000px;
-    height:300px;
-    margin: 0 auto;
-    margin-top:100px
- } 
- .container2 > .box2{
-    border:2px ridge;
-    width:1000px;
-    height:300px;
-    margin: 0 auto;
-    margin-top:100px
- } 
- 
- #abcde {
-     color:red;
+ {% block style %}
+ span#select_number{
+ font-size:1.7em;
  }
- 
-{% endblock  %}
+ .container1 > .box1{
+ border:2px ridge;
+ width:1000px;
+ /*height:800px;*/
+ margin: 0 auto;
+ margin-top:100px
+
+ }
+ .container2 > .box2{
+ border:2px ridge;
+ width:1000px;
+ /*height:800px;*/
+ margin: 0 auto;
+ margin-top:100px
+ }
+
+ .wrap{
+ padding: 1em;
+ }
+ button{
+ font-size: 12px;
+ }
+ .lottery-nums{
+ overflow: hidden;
+ width: 550px;
+ }
+
+
+ .lottery-nums > div{
+ /* display: block; */
+ float: left;
+ width: 70px; height: 80px;
+ border: 1px solid #FF1212;
+ background-color: #fff;
+ color: #555;
+ font-size: 30px;
+ padding: 10px;
+ text-align: center;
+ line-height: 60px;
+ margin-right: 2px;
+ margin-bottom: 8px;
+
+
+ }
+
+ .lottery-nums .selected{
+ background-color: black;
+ color: #fff;
+ }
+
+ .lottery-nums .highlight{
+ background-color: red;
+ color: #fff;
+ }
+
+ .lottery-nums .selected.highlight{
+ background-color: yellow;
+ color: #333;
+ }
+
+
+ @font-face { font-family: 'BMJUA'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff')
+ format('woff'); font-weight: normal; font-style: normal; }
+ @keyframes done {
+ 70% {
+ transform: scale(1.2)
+ }
+ 100% {
+ transform: scale(1)
+ }
+ }
+
+ html {
+ font-family: BMJUA
+ }
+
+ *, ::before, ::after {
+ box-sizing: border-box
+ }
+
+ body,#title,#btn_result {
+ font: inherit;
+ }
+
+ #title {
+ font-size: 3rem;
+ margin: 2rem 0
+ }
+
+ #wrapper {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ padding: 10px
+ }
+
+ #result_numbers {
+ display: flex;
+ margin-bottom: 20px;
+ padding: 30px;
+ border: 3px solid pink;
+ border-radius: 20px
+ }
+
+ #result_numbers .ball {
+ width: 80px;
+ height: 80px;
+ margin-right: 10px;
+ line-height: 80px;
+ font-size: 48px;
+ border-radius: 50%;
+ text-align: center;
+ }
+
+ #result_numbers .ball.blue {
+ background: #69c8f2
+ }
+
+ #result_numbers .ball.red {
+ background:#ff7272
+ }
+
+ #result_numbers .ball.grey {
+ background:#aaa
+ }
+
+ #result_numbers .ball.bonus {
+ background: #b0d840
+ }
+
+ #result_numbers .ball.done {
+ animation: done .3s linear
+ }
+
+ #result_numbers .ball:last-child {
+ margin-right: 0
+ }
+
+ #result_numbers .plus {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ padding: 0 20px;
+ font-size: 48px;
+ font-weight: bold
+ }
+
+ #btn_result {
+ position: relative;
+ display: block;
+ padding: 1rem 2.5rem 1.6rem;
+ background: #fff;
+ color: #666;
+ border: 2px solid #666;
+ border-radius: 6px;
+ overflow: hidden;
+ transition: .5s;
+ user-select: none
+ }
+
+ #btn_result:hover {
+ padding: 1rem 2.5rem 1rem;
+ margin-top: .6rem;
+ background: #999;
+ color: #fff
+ }
+
+ #btn_result::after {
+ content: '';
+ position: absolute;
+ left: 0;
+ bottom: 0;
+ display: block;
+ height: .6rem;
+ width: 100%;
+ background-image: repeating-linear-gradient(45deg, #666, #666 1px, transparent 2px, transparent 5px);
+ border-top: 1px solid #666;
+ transition: .5s
+ }
+
+ #btn_result:hover::after {
+ transform: translateY(.6rem)
+ }
+
+ #btn_result.hide {
+ transform: scale(0)
+ }
+
+ @media screen and (max-width: 800px) {
+ #result_numbers {
+ flex-direction: column;
+ align-items: center
+ }
+
+ #result_numbers .ball {
+ margin-right: 0;
+ margin-bottom: 10px
+ }
+
+ #result_numbers .ball:last-child {
+ margin-bottom: 0
+ }
+ }
+
+
+
+ {% endblock  %}
 
  {% block content %}
-<div class="container1">
-    <div class="box1">
- <h1 id="abcde">여기는 div 1 입니다.</h1>
- </div>
-</div>
-<div class="container2">
-    <div class="box2">
-<h1>여기는 div 2 입니다. </h1>
-</div>
-</div>
- {% endblock  %}
- 
+ <div class="container1 row">
+     <div class="box1 col-md-12">
+         <div class="wrap">
 
-{% block script %}
-{% endblock  %}
+             <div class="lottery-nums col-md-6" style="display:inline-block;"></div>
+
+             <!-- result number and submit button-->
+             <div class="test" style="display:inline-block; border: 5px solid red; height: 616px;">
+                 <div style="padding-top: 300px;">
+                     <div class="lottery-result"><span id="select_number">선택한 번호 :</span></div>
+
+                     <div class="lotto_submit" style="display:inline-block;">
+                         <button class="btn btn-info btn-lottery">제출</button>
+                     </div>
+                 </div>
+             </div>
+
+         </div>
+     </div>
+ </div>
+
+ <div class="container2">
+     <div class="box2">
+         <h1>게임화면 나타내는 곳입니다. </h1>
+         <div id="wrapper">
+             <h1 id="title">Lotto Result</h1>
+             <div id="result_numbers">
+                 <div class="ball blue">?</div>
+                 <div class="ball blue">?</div>
+                 <div class="ball blue">?</div>
+                 <div class="ball red">?</div>
+                 <div class="ball red">?</div>
+                 <div class="ball grey">?</div>
+             </div>
+             <button id="btn_result">시작!</button>
+         </div>
+     </div>
+ </div>
+ {% endblock  %}
+
+
+
+ {% block script %}
+ <script>
+     $(function () {
+         $('.container2').hide();
+         var snumber = [];
+         var btn = document.getElementById('.btn-lottery');
+         let tmp = 1,
+             numbers;
+         var resultN = [];
+
+         for (var i = 1; i < 46; i++) {
+             $('.lottery-nums').append('<div>' + i + '</div>');
+         }
+
+
+         $('.lottery-nums div').on('click', function () {
+
+             $(this).toggleClass('selected');
+
+             if ($('.selected').length > 6) {
+                 alert('숫자는 6개을 선택해 주시기 바랍니다');
+                 $(this).removeClass('selected');
+             } else {
+                 if (snumber.indexOf($(this).text()) == -1) {
+                     snumber.push($(this).text());
+                     snumber.sort();
+                 } else {
+                     snumber.splice(snumber.indexOf($(this).text()), 1);
+                 }
+             }
+
+             console.log(snumber);
+
+             $('.lottery-result > span').text("선택한 번호:" + snumber);
+         });
+         // show 2 view game result
+
+         $('.btn-lottery').on('click', function () {
+             if(snumber.length==6){
+             $('.container1').css("display", "none")
+             $('.container2').show();
+              tmp === 1 && (
+                     numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+                         18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
+                         35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45
+                     ],
+                     tmp = 0,
+                     lottery(),
+                     setTimeout(function () {
+                         tmp = 1
+                     }, 8500)
+                 )
+
+             function getindex(c) {
+                 let d = 0;
+                 for (d; c = c.previousElementSibling; d++);
+                 return d
+             }
+
+             function decryptEffect(elem, time) {
+                 const effect = setInterval(function () {
+                     elem.innerText = Math.floor(Math.random() * 44 + 1)
+                 }, 10);
+                 setTimeout(function () {
+                     const random = Math.floor(Math.random() * numbers.length);
+                     clearInterval(effect),
+                         elem.classList.add("done"),
+                         elem.innerText = numbers[random],
+                         numbers.splice(random, 1)
+                     resultN.push(elem.innerText);
+                    console.log(resultN)
+                 }, time * 1500 + 1500)
+
+             }
+
+             function lottery() {
+                 Array.from(document.querySelectorAll(".ball")).forEach(a => {
+                     a.classList.remove("done"),
+                         decryptEffect(a, getindex(a))
+                 })
+             }
+             }else{alert("6개 모두 선택 했는지 다시 한번 확인하십시오");}
+         });
+
+        function price(){
+        
+        }
+     });
+ </script>
+ {% endblock  %}

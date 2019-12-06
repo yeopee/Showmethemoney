@@ -88,8 +88,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- //requried-jsfiles-for owl -->
 
 	<!--scrolling js-->
-	<script src="{% static 'js/jquery.nicescroll.js' %}"></script>
-	<script src="{% static 'js/scripts.js' %}"></script>
+	{% comment %} <script src="{% static 'js/jquery.nicescroll.js' %}"></script> {% endcomment %}
+	{% comment %} <script src="{% static 'js/scripts.js' %}"></script> {% endcomment %}
 	<!--//scrolling js-->
 	<script src="{% static 'js/bootstrap.min.js' %}"> </script>
 	<style>
@@ -219,10 +219,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="clearfix"> </div>
 	</div>
 	</div>
-	<script>
+
 	   {% block script %}
         {% endblock  %}
-		</script>
+		
 </body>
 
 </html>
