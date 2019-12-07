@@ -109,29 +109,31 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<div class="border-bottom">
 					{% if user.is_authenticated %}
 						<div class="nav">
-							<ul class="navbar-left navbar-collapse">
-								<li class="nav-item navbar-text">
+							<div class="navbar-left navbar-collapse">
+								<div class="nav-item navbar-text">
 									<span>Welcome! <strong class="text-primary">{{ user.username }}</strong>, You earn <strong class="text-primary">{{ user.money }}</strong> won</span>
-								</li>
-							</ul>
+								</div>
+							</div>
 
-							<ul class="navbar-right navbar-collapse">
-								<li class="nav-item navbar-text">
+							<div class="navbar-right navbar-collapse">
+								<div class="nav-item navbar-text">
 									<h3><a href="{% url 'accounts:signout' %}" class="label label-primary">Sing Out</a><h3>
-								</li>
-							</ul>
+								</div>
+							</div>
 						</div>
 					{% else %}
 						<div class="nav">
-							<ul class="navbar-left navbar-collapse">
-								<li class="nav-item navbar-text">
+							<div class="navbar-left navbar-collapse">
+								<div class="nav-item navbar-text">
 									<span>Please, Give Me The Money... <strong class="text-primary">Mr.Guest</strong></span>
-								</li>
+								</div>
+							</div>
 
-								<li class="nav-item navbar-text">
+							<div class="navbar-right navbar-collapse">
+								<div class="nav-item navbar-text">
 									<h3><a href="{% url 'accounts:login' %}" class="label label-primary">Log In</a><h3>
-								</li>
-							</ul>
+								</div>
+							</div>
 						</div>
 					{% endif %}
 
@@ -209,13 +211,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</div>
 		</nav>
 
-		<div id="page-wrapper" class="gray-bg dashbard-1">
-			<div class="content-main">
-				<!--content-->
+		<div id="page-wrapper" class="gray-bg dashbard-1">			
+			<!--content-->
 
-				{% block content %}
-            	{% endblock  %}
-            </div>
+			{% block content %}
+			{% endblock  %}
 		</div>
 
 		<div class="copy">

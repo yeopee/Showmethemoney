@@ -3,22 +3,13 @@
 {% load static %}
 
 {% block style %}
+    <link rel="stylesheet" href="{% static 'css/overlay.video.css' %}">
 {% endblock  %}
 
 {% block content %}
-<div class="banner">
-    <h2>
-        <a href="{% url 'lotto:index' %}">Home</a>
-        <i class="fa fa-angle-right"></i>
-        <span>Main</span>
-    </h2>
-</div>
-
-<div class="content-top">
     <div class="content-top-1">
-        
+        <video class="img-responsive" src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" autoplay loop muted></video>
     </div>
-</div>
 {% endblock  %}
 
 {% block script %}
