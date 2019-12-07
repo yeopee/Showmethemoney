@@ -1,8 +1,24 @@
- {% extends 'base.html' %}
+{% extends 'base.html' %}
+
+{% load static %}
+
 {% block style %}
 {% endblock  %}
 
 {% block content %}
+<div class="banner">
+    <h2>
+        <a href="{% url 'lotto:index' %}">Home</a>
+        <i class="fa fa-angle-right"></i>
+        <span>Main</span>
+    </h2>
+</div>
+
+<div class="content-top">
+    <div class="content-top-1">
+        
+    </div>
+</div>
 {% endblock  %}
 
 {% block script %}

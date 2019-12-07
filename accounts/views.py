@@ -3,56 +3,64 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-
-from .models import UserInfo
+from .forms import CustomUserCreationForm, CustomAuthenticationForm
+from .models import CustomUser
 
 # Create your views here.
 
 def accounts_test(request):
     return render(request, 'test/login_test.html')
 
-def signin(request):
+def login(request):
+    if request.user.is_authenticated:
+        return redirect('lotto:index')
+
+    message = ''
+
     if request.method == 'POST':
-        form = AuthenticationForm(request, request.POST)
+        form = CustomAuthenticationForm(request, request.POST)
 
         if form.is_valid():
             user = form.get_user()
             auth_login(request, user)
 
-            return redirect('accounts:test')
-        
-        else:
-            return render(request, 'signin.html')
-    else:
-        return render(request, 'signin.html')
+            return redirect(request.GET.get('next') or 'lotto:index')
+
+        message = 'Please, Check your id or password'
+
+    context = {
+        'message' : message
+    }
+
+    return render(request, 'signin.html', context)
 
 def signout(request):
-    if request.method == 'POST':
+    if request.user.is_authenticated:
         auth_logout(request)
 
-        return redirect('accounts:signin')
+        return redirect('lotto:index')
 
-    else:
-        return render(request, 'signin.html')
+    return redirect('accounts:login')
 
 def signup(request):
+    if request.user.is_authenticated:
+        return redirect('lotto:index')
+
+    message = ''
+
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
 
         if form.is_valid():
             user = form.save()
-
-            user_info = UserInfo()
-            user_info.user = user
-            user_info.save()
-
             auth_login(request, user)
 
-            return redirect('accounts:test')
+            return redirect('lotto:index')
 
-        else:
-            return render(request, 'signup.html')
-    
-    else:
-        return render(request, 'signup.html')
+        message = 'Please, Check your id or password'
+
+    context = {
+        'message' : message
+    }
+
+    return render(request, 'signup.html', context)
