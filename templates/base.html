@@ -82,8 +82,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!-- //requried-jsfiles-for owl -->
 
 	<!--scrolling js-->
-	<script src="{% static 'js/jquery.nicescroll.js' %}"></script>
-	<script src="{% static 'js/scripts.js' %}"></script>
+	{% comment %} <script src="{% static 'js/jquery.nicescroll.js' %}"></script> {% endcomment %}
+	{% comment %} <script src="{% static 'js/scripts.js' %}"></script> {% endcomment %}
 	<!--//scrolling js-->
 	<script src="{% static 'js/bootstrap.min.js' %}"> </script>
 	
@@ -222,10 +222,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<p> &copy; 2016 Minimal. All Rights Reserved .</p>
 		</div>
 	</div>
+
+
+	   {% block script %}
+        {% endblock  %}
+		
 	<div class="clearfix"></div>
 
 	{% block script %}
 	{% endblock  %}
+
 </body>
 
 </html>
