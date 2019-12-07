@@ -5,5 +5,5 @@ app_name = 'lottogame'
 
 urlpatterns = [
     path('',lottogame_views.index, name='game'),
-   
+    path('result/',lottogame_views.result,name='result')
 ]

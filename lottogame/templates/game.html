@@ -264,11 +264,11 @@
          let tmp = 1,
              numbers;
          var resultN = [];
-
+         var cnt =0;
+         
          for (var i = 1; i < 46; i++) {
              $('.lottery-nums').append('<div>' + i + '</div>');
          }
-
 
          $('.lottery-nums div').on('click', function () {
 
@@ -303,8 +303,10 @@
                      ],
                      tmp = 0,
                      lottery(),
+
                      setTimeout(function () {
-                         tmp = 1
+                         tmp = 1;
+                         price();
                      }, 8500)
                  )
 
@@ -325,22 +327,50 @@
                          elem.innerText = numbers[random],
                          numbers.splice(random, 1)
                      resultN.push(elem.innerText);
-                    console.log(resultN)
                  }, time * 1500 + 1500)
-
              }
 
              function lottery() {
+                resultN = [];
                  Array.from(document.querySelectorAll(".ball")).forEach(a => {
                      a.classList.remove("done"),
                          decryptEffect(a, getindex(a))
-                 })
+                 });
+
+
              }
              }else{alert("6개 모두 선택 했는지 다시 한번 확인하십시오");}
          });
-
-        function price(){
         
+        function price(){
+            for(var i =0; i< snumber.length;i++){
+                for(var z =0; z<resultN.length; z++){
+                    if(snumber[i]==resultN[z]){
+                        cnt++;
+                        break;
+                    }
+                }
+                
+            
+            }
+            
+            $.ajax({
+            url : "{% url 'lottogame:result' %}",
+            method :'POST',
+            data : {
+                csrfmiddlewaretoken :'{{ csrf_token }}',
+                'cnt' : cnt,
+            } ,
+            
+            success : function(data){
+            	alert("성공");
+        	},
+            
+            error : function(data){
+                alert("실패");
+            }
+            })
+
         }
      });
  </script>
