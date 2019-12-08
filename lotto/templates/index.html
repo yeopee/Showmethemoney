@@ -10,39 +10,42 @@
             <h1>JackPot</h1>
             <h2>Show Me The Money</h2>
             <button>500 won!!</button>
-
-        
     </div>
 
     <div class="section">
             <h1>Lotto</h1>
             <h2>다음 회차에</h2>
-            <h2>무엇아 나올지 예상해 보세요 !!</h2>
+            <h2>무엇이 나올지 예상해 보세요 !!</h2>
             <button>1000 won!!</button>
-
-    
-    
     </div>
     
     <div class="section">
         <div class="slide">
-        {{ authenticataion }}
-
+            // 로그인
+            <form action="">
+               {% csrf_token %}
+               {{ authenticataion }}
+               <button>login</button>
+            <form>
         </div>
         <div class='slide'>
+            // 회원가입
             <form action="">
-            {{ creation }}
-            <button>submit</button>
-         </form>
+              {% csrf_token %}
+              {{ creation }}
+              <button>signup</button>
+            </form>
         </div>
     </div>
+          
     <div class="section">
-    <h1>{{ user.username }}님 반갑습니다</h1>
-    <h1>회원님이 가지고 계신 금액은 : {{user.money}} 입니다.<h1>
-    <button> 금액 충전하기</button><br>
-    <button>광고 보고 500원 충전하자!</button> 
+      <h1>{{ user.username }}님 반갑습니다</h1>
+      <h1>회원님이 가지고 계신 금액은 : {{user.money}} 입니다.<h1>
+       
+      <button>금액 충전하기!</button>
+      <button>광고 보고 500원 충전하자!</button> 
     </div>
-{% endblock  %}
+{% endblock %}
 
 {% block script %}
-{% endblock  %}
+{% endblock %}
