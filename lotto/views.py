@@ -3,10 +3,20 @@ from django.shortcuts import render,HttpResponse
 from . import parse_lotto
 import json
 
+from accounts.forms import CustomUserCreationForm, CustomAuthenticationForm
+
 # Create your views here.
 
 def index(request):
-    return render(request, 'index.html')
+    creation_form = CustomUserCreationForm()
+    authenticataion_form = CustomAuthenticationForm()
+
+    context = {
+        'creation' : creation_form,
+        'authenticataion' :authenticataion_form
+    }
+
+    return render(request, 'index.html',context)
 
 # lotto_data_test
 #       This function is for testing lotto_data
