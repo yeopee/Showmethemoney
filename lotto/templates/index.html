@@ -9,23 +9,39 @@
     <div class="section">
             <h1>JackPot</h1>
             <h2>Show Me The Money</h2>
+            <button>500 won!!</button>
 
-            <ul>
-                <li style="display:inline-block; margin-left:10px;">
-                    <a class="section-1-button" rel="noopener" href="https://alvarotrigo.com/fullPage/extensions/">Extensions</a>
-                </li>
-                <li id="download" style="display:inline-block; margin-left:10px;">
-                    <a class="section-1-button" href="https://github.com/alvarotrigo/fullpage.js/archive/master.zip" rel="noopener">Download</a>
-                </li>
-                <li style="display:inline-block; margin-left:10px;">
-                    <a class="section-1-button" href="https://github.com/alvarotrigo/fullpage.js" rel="noopener">View on GitHub</a>
-                </li>
-            </ul>
+        
     </div>
 
-    <div class="section">Some section2</div>
-    <div class="section">Some section3</div>
-    <div class="section">Some section4</div>
+    <div class="section">
+            <h1>Lotto</h1>
+            <h2>다음 회차에</h2>
+            <h2>무엇아 나올지 예상해 보세요 !!</h2>
+            <button>1000 won!!</button>
+
+    
+    
+    </div>
+    
+    <div class="section">
+        <div class="slide">
+        {{ authenticataion }}
+
+        </div>
+        <div class='slide'>
+            <form action="">
+            {{ creation }}
+            <button>submit</button>
+         </form>
+        </div>
+    </div>
+    <div class="section">
+    <h1>{{ user.username }}님 반갑습니다</h1>
+    <h1>회원님이 가지고 계신 금액은 : {{user.money}} 입니다.<h1>
+    <button> 금액 충전하기</button><br>
+    <button>광고 보고 500원 충전하자!</button> 
+    </div>
 {% endblock  %}
 
 {% block script %}
