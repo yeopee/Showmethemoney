@@ -1,11 +1,11 @@
  {% extends 'base.html' %}
 
  {% block style %}
+ <style>
  span#select_number{
  font-size:1.7em;
  }
  .container1 > .box1{
- border:2px ridge;
  width:1000px;
  /*height:800px;*/
  margin: 0 auto;
@@ -13,7 +13,6 @@
 
  }
  .container2 > .box2{
- border:2px ridge;
  width:1000px;
  /*height:800px;*/
  margin: 0 auto;
@@ -209,18 +208,20 @@
  }
 
 
-
+</style>
  {% endblock  %}
 
  {% block content %}
  <div class="container1 row">
+ <h1>MINI LOTTO</h1>
+ <h2>한 게임당 500 Point 입니다.</h2>
      <div class="box1 col-md-12">
          <div class="wrap">
 
              <div class="lottery-nums col-md-6" style="display:inline-block;"></div>
 
              <!-- result number and submit button-->
-             <div class="test" style="display:inline-block; border: 5px solid red; height: 616px;">
+             <div class="test" style="display:inline-block;  height: 616px;">
                  <div style="padding-top: 300px;">
                      <div class="lottery-result"><span id="select_number">선택한 번호 :</span></div>
 
@@ -236,7 +237,6 @@
 
  <div class="container2">
      <div class="box2">
-         <h1>게임화면 나타내는 곳입니다. </h1>
          <div id="wrapper">
              <h1 id="title">Lotto Result</h1>
              <div id="result_numbers">
@@ -247,7 +247,14 @@
                  <div class="ball red">?</div>
                  <div class="ball grey">?</div>
              </div>
-             <button id="btn_result">시작!</button>
+             <p>Price</p>
+             <p>1개 맞추면 point:100 획득!</p>
+             <p>2개 맞추면 point:300 획득!</p>
+             <p>3개 맞추면 point:500 획득!</p>
+             <p>4개 맞추면 point:800 획득!</p>
+             <p>5개 맞추면 point:1000 획득!</p>
+             <p>6개 맞추면 point:2000 획득!</p>
+             <p id="result_str">당신이 맞춘 갯수는 얼마입니다.</p>
          </div>
      </div>
  </div>
@@ -363,13 +370,18 @@
             } ,
             
             success : function(data){
-            	alert("성공");
+                console.log(data)
         	},
             
             error : function(data){
                 alert("실패");
             }
             })
+
+            var result_position = $('#result_str');
+            var input = cnt;
+
+            result_position.innerText(input);
 
         }
      });
