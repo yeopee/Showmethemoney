@@ -1,91 +1,71 @@
+<!doctype html>
+<html lang="ko">
 
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
-<!DOCTYPE HTML>
-<html>
 <head>
-	<title>TOUCH THE JACKPOT - SHOW ME THE MONEY</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+	<meta name="generator" content="Jekyll v3.8.6">
+	<title>Signin Template · Bootstrap</title>
 
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="keywords" content="Lotto, Jackpot, Money, Win, Winner" />
+	<link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/sign-in/">
 
-	{% load static %}
+	<!-- Bootstrap core CSS -->
+	<link href="https://getbootstrap.com/docs/4.4/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-	<script type="application/x-javascript">
-		addEventListener("load", function () {
-			setTimeout(hideURLbar, 0);
-		}, false);
+	<!-- Favicons -->
+	<link rel="apple-touch-icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/apple-touch-icon.png"
+		sizes="180x180">
+	<link rel="icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/favicon-32x32.png" sizes="32x32"
+		type="image/png">
+	<link rel="icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/favicon-16x16.png" sizes="16x16"
+		type="image/png">
+	<link rel="manifest" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/manifest.json">
+	<link rel="mask-icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/safari-pinned-tab.svg"
+		color="#563d7c">
+	<link rel="icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/favicon.ico">
+	<meta name="msapplication-config" content="https://getbootstrap.com/docs/4.4/assets/img/favicons/browserconfig.xml">
+	<meta name="theme-color" content="#563d7c">
 
-		function hideURLbar() {
-			window.scrollTo(0, 1);
+
+	<style>
+		.bd-placeholder-img {
+			font-size: 1.125rem;
+			text-anchor: middle;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
 		}
-	</script>
 
-	<link href="{% static 'css/bootstrap.min.css' %}" rel='stylesheet' type='text/css'/>
-
-	<!-- Custom Theme files -->
-	<link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css' />
-	<link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
-	<script src="{% static 'js/jquery.min.js' %}"> </script>
-
-	<!-- Mainly scripts -->
-	<script src="{% static 'js/jquery.metisMenu.js' %}"></script>
-	<script src="{% static 'js/jquery.slimscroll.min.js' %}"></script>
-
-	<!-- Custom and plugin javascript -->
-	<link href="{% static 'css/custom.css' %}" rel="stylesheet">
-	<script src="{% static 'js/custom.js' %}"></script>
-	<script src="{% static 'js/screenfull.js' %}"></script>
+		@media (min-width: 768px) {
+			.bd-placeholder-img-lg {
+				font-size: 3.5rem;
+			}
+		}
+	</style>
+	<!-- Custom styles for this template -->
+	<link href="https://getbootstrap.com/docs/4.4/examples/sign-in/signin.css" rel="stylesheet">
 </head>
-<body>
-	<div class="login">
-		<h1><a href="{% url 'lotto:index' %}">Touch The JackPot</a></h1>
-		<h4 class="text-center">WelCome To Show Me The Money</h4>
 
-		<div class="login-bottom">
-			<h2>Login</h2>
-			
-			<form method="POST">
-				{% csrf_token %}
+<body class="text-center">
+	<form class="form-signin" action="{% url 'accounts:login' %}" method='POST'>
+		{% csrf_token %}
+		<img class="mb-4" src="https://getbootstrap.com/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="72"
+			height="72">
+		<h1 class="h3 mb-3 font-weight-normal">로그인</h1>
+		<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus
+			name='username'>
+		<input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password">
+		<div class="checkbox mb-3">
 
-				<div class="col-md-6">
-					<div class="login-mail">
-						<input type="text" name="username" placeholder="Email" required="">
-						<i class="fa fa-envelope"></i>
-					</div>
-					<div class="login-mail">
-						<input type="password" name="password" placeholder="Password" required="">
-						<i class="fa fa-lock"></i>
-					</div>
-				</div>
-
-				<div class="col-md-6 login-do">
-					<label class="hvr-shutter-in-horizontal login-sub">
-						<input type="submit" value="login">
-						</label>
-						<p>Do not have an account?</p>
-					<a href="{% url 'accounts:signup' %}" class="hvr-shutter-in-horizontal">Signup</a>
-				</div>
-				
-				<div class="clearfix"> </div>
-			</form>
-
-			<div class="text-center">{{ message }}</div>
 		</div>
-	</div>
-		<!---->
-	<div class="copy-right">
-            <p> &copy; 2016 Minimal. All Rights Reserved .</p>	    </div>  
-	<!---->
-<!--scrolling js-->
-	<script src="js/jquery.nicescroll.js"></script>
-	<script src="js/scripts.js"></script>
-	<!--//scrolling js-->
-</body>
-</html>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">login</button>
+		<a href="{% url 'accounts:signup' %}">로또 번호가 궁금하니? 가입해봐 </a>
 
+	</form>
+</body>
+
+</html>
