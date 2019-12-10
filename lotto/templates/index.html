@@ -7,7 +7,9 @@
 {% endblock style %}
 
 {% block content %}
-<div class="section active">
+<div class="section">
+    <iframe id="myVideo" src="https://www.youtube.com/embed/vOwM-2srAJY?version=3&controls=0&loop=1&playlist=vOwM-2srAJY&modestbranding=1&playsinline=0&rel=0" frameborder="0" muted ></iframe>
+
     <div class="layer">
         <h1 class="neon">Jack<span class="flux">Pot</span></h1>
         <h2>미니게임으로</h2>
@@ -51,6 +53,36 @@
 {% endblock content %}
 
 {% block script %}
+    <script>
+		new fullpage('#fullpage', {
+			// Before Login
+			menu : '#menu',
+
+			{% if user.is_authenticated %}
+				anchors : ['MiniGame', 'Lotto', 'GasStation', 'Signout'],
+				navigationTooltips: ['MiniGame', 'Lotto', 'GasStation'],
+			{% else %}
+				anchors : ['MiniGame', 'Lotto', 'Login'],
+				navigationTooltips: ['MiniGame', 'Lotto'],
+			{% endif %}
+
+			// After Login
+
+			// Navigation
+			navigation: true,
+			navigationPosition: 'right',
+			showActiveTooltip: true,
+			
+			slidesNavigation : true,
+			slidesNavPosition : 'bottom',
+
+			// Design
+			autoScrolling : true,
+			scrollHorizontally : true,
+			sectionsColor: ['#ffffff', '#ffffff']
+		});
+	</script>
+
     <script>
         $('#charge-money-without-ad').click(function(){
             $.ajax({

@@ -47,36 +47,6 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-	<script>
-		new fullpage('#fullpage', {
-			// Before Login
-			menu : '#menu',
-
-			{% if user.is_authenticated %}
-				anchors : ['MiniGame', 'Lotto', 'GasStation', 'Signout'],
-				navigationTooltips: ['MiniGame', 'Lotto', 'GasStation'],
-			{% else %}
-				anchors : ['MiniGame', 'Lotto', 'Login'],
-				navigationTooltips: ['MiniGame', 'Lotto'],
-			{% endif %}
-
-			// After Login
-
-			// Navigation
-			navigation: true,
-			navigationPosition: 'right',
-			showActiveTooltip: true,
-			
-			slidesNavigation : true,
-			slidesNavPosition : 'bottom',
-
-			// Design
-			autoScrolling : true,
-			scrollHorizontally : true,
-			sectionsColor: ['#ffffff', '#ffffff']
-		});
-	</script>
-
 	{% block script %}
 	{% endblock script %}
 </body>
