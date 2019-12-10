@@ -3,49 +3,93 @@
 {% load static %}
 
 {% block style %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
 {% endblock style %}
 
 {% block content %}
-    <div class="section active">
-            <h1>JackPot</h1>
-            <h2>Show Me The Money</h2>
-            <button>500 won!!</button>
-    </div>
+<div class="section active">
+    <div class="layer">
+        <h1 class="neon">Jack<span class="flux">Pot</span></h1>
+        <h2>미니게임으로</h2>
+        <h2>당신의 운을 시험해 보세요 !!</h2>
 
-    <div class="section">
-            <h1>Lotto</h1>
-            <h2>다음 회차에</h2>
-            <h2>무엇이 나올지 예상해 보세요 !!</h2>
-            <button>1000 won!!</button>
+        <button class="button">
+            <a href="#">500 won!!</a>
+        </button>
     </div>
-    
-    <div class="section">
-        <div class="slide">
-            // 로그인
-            <form action="">
-               {% csrf_token %}
-               {{ authenticataion }}
-               <button>login</button>
-            <form>
-        </div>
-        <div class='slide'>
-            // 회원가입
-            <form action="">
-              {% csrf_token %}
-              {{ creation }}
-              <button>signup</button>
-            </form>
-        </div>
+</div>
+
+<div class="section">
+    <div class="layer">
+        <h1 class="neon">Lotto</h1>
+        <h2>다음 회차에</h2>
+        <h2>무엇이 나올지 예상해 보세요 !!</h2>
+
+        <button class="button">
+            <a href="#">1000 won!!</a>
+        </button>
     </div>
-          
-    <div class="section">
-      <h1>{{ user.username }}님 반갑습니다</h1>
-      <h1>회원님이 가지고 계신 금액은 : {{user.money}} 입니다.<h1>
+</div>
+
+{% if user.is_authenticated %}
+<div class="section">
+    <div class="layer">
+        <h1 class="flux">{{ user.username }}</h1>
+        <h2>가지고 있는 금액은</h2>
+        <h2 id="user-money">{{user.money}}원 입니다.</h2>
        
-      <button>금액 충전하기!</button>
-      <button>광고 보고 500원 충전하자!</button> 
+        <button class="button">
+            <a id="charge-money-without-ad" href="#">금액 충전하기 !!</a>
+        </button>
+        <button class="button">
+            <a id="charge-money-with-ad" href="#">광고 보고 500원 충전하기 !!</a>
+        </button>
     </div>
-{% endblock %}
+</div>
+{% endif %}
+
+{% endblock content %}
 
 {% block script %}
-{% endblock %}
+    <script>
+        $('#charge-money-without-ad').click(function(){
+            $.ajax({
+                url : "{% url 'accounts:charge-money-without-ad' %}",
+                method : "POST",
+                data : {
+                    csrfmiddlewaretoken : '{{ csrf_token }}'
+                },
+
+                success : function(data) {
+                    $('#user-money').text(data.money + '원 입니다');
+                },
+
+                fail : function(data) {
+                    if (data.status == 403) {
+                        alert('잘못된 접근입니다.');
+                    }
+                }
+            });
+        });
+
+        $('#charge-money-with-ad').click(function(){
+            $.ajax({
+                url : "{% url 'accounts:charge-money-with-ad' %}",
+                method : "POST",
+                data : {
+                    csrfmiddlewaretoken : '{{ csrf_token }}'
+                },
+
+                success : function(data) {
+                    $('#user-money').text(data.money + '원 입니다');
+                },
+
+                fail : function(data) {
+                    if (data.status == 403) {
+                        alert('잘못된 접근입니다.');
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock script %}

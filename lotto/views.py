@@ -8,15 +8,7 @@ from accounts.forms import CustomUserCreationForm, CustomAuthenticationForm
 # Create your views here.
 
 def index(request):
-    creation_form = CustomUserCreationForm()
-    authenticataion_form = CustomAuthenticationForm()
-
-    context = {
-        'creation' : creation_form,
-        'authenticataion' :authenticataion_form
-    }
-
-    return render(request, 'index.html',context)
+    return render(request, 'index.html')
 
 # lotto_data_test
 #       This function is for testing lotto_data
