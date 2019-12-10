@@ -1,0 +1,238 @@
+@charset "ISO-8859-1";
+
+/* Reset CSS
+ * --------------------------------------- */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,
+form,fieldset,input,textarea,p,blockquote,th,td {
+    padding: 0;
+    margin: 0;
+}
+a{
+	text-decoration:none;
+}
+table {
+    border-spacing: 0;
+}
+fieldset,img {
+    border: 0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+    font-weight: normal;
+    font-style: normal;
+}
+strong{
+	font-weight: bold;
+}
+ol,ul {
+    list-style: none;
+    margin:0;
+    padding:0;
+}
+caption,th {
+    text-align: left;
+
+}
+h1,h2,h3,h4,h5,h6 {
+    font-weight: normal;
+    font-size: 100%;
+    margin:0;
+    padding:0;
+    color:#444;
+}
+q:before,q:after {
+    content:'';
+}
+abbr,acronym { border: 0;
+}
+
+
+/* Custom CSS
+ * --------------------------------------- */
+body{
+	font-family: 'Lilita One', cursive;
+	color: #333;
+	color: rgba(0,0,0,0.5);
+}
+.wrap{
+	margin-left: auto;
+	margin-right: auto;
+	width: 960px;
+	position: relative;
+}
+h1{
+	font-size: 10em;
+	font-weight: bold;
+	color: red;
+	margin-bottom: 0.1em;
+}
+h2{
+	font-size: 2em;
+	font-weight: bold;
+	color: red;
+}
+p{
+	font-size: 2em;
+}
+.intro p{
+	width: 50%;
+	margin: 0 auto;
+	font-size: 1.5em;
+}
+.section{
+	text-align:center;
+	overflow: hidden;
+}
+
+#myVideo{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	top:0;
+	right:0;
+	width: 100%;
+	height: 100%;
+	background-size: 100% 100%;
+	background-color: black; /* in case the video doesn't fit the whole page*/
+	background-image: /* our video */;
+	background-position: center center;
+	background-size: contain;
+	object-fit: cover; /*cover video background */
+	z-index:3;
+}
+
+
+/* Layer with position absolute in order to have it over the video
+* --------------------------------------- */
+.section .layer{
+	position: absolute;
+	z-index: 4;
+	width: 100%;
+	left: 0;
+	top: 43%;
+
+	/*
+	* Preventing flicker on some browsers
+	* See http://stackoverflow.com/a/36671466/1081396  or issue #183
+	*/
+	-webkit-transform: translate3d(0,0,0);
+	-ms-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
+
+#menu li {
+	display:inline-block;
+	margin: 10px;
+	color: #000;
+	background:#fff;
+	background: rgba(255,255,255, 0.5);
+	-webkit-border-radius: 10px;
+            border-radius: 10px;
+}
+#menu li.active{
+	background:#666;
+	background: rgba(0,0,0, 0.5);
+	color: #fff;
+}
+#menu li a{
+	text-decoration:none;
+	color: #000;
+}
+#menu li.active a:hover{
+	color: #000;
+}
+#menu li:hover{
+	background: rgba(255,255,255, 0.8);
+}
+#menu li a,
+#menu li.active a{
+	padding: 9px 18px;
+	display:block;
+}
+#menu li.active a{
+	color: #fff;
+}
+#menu{
+	position:fixed;
+	top:0;
+	right: 0;
+	height: 40px;
+	z-index: 70;
+	width: 100%;
+	padding: 0;
+	margin:0;
+	text-align: right;
+}
+
+/* Buttons
+*/
+.button {
+    margin: 20px 0 0 0;
+    vertical-align: middle;
+    display: inline-block
+}
+
+.button a {
+    color: #fff;
+    background: red;
+    padding: 15px 30px;
+    border-radius: 5px;
+	display: inline-block;
+	font-weight: bold;
+}
+
+.button a:hover {
+    color: #316f68;
+    background-color: #fff
+}
+
+/*
+* neon, flux css
+*/
+  .neon {
+	color: #FB4264;
+	line-height: 9vw;
+	text-shadow: 0 0 3vw #F40A35;
+  }
+  
+  .flux {
+	color: #426DFB;
+	line-height: 9vw;
+	text-shadow: 0 0 3vw #2356FF;
+  }
+  
+  .neon {
+	animation: neon 1s ease infinite;
+	-moz-animation: neon 1s ease infinite;
+	-webkit-animation: neon 1s ease infinite;
+  }
+  
+  @keyframes neon {
+	0%,
+	100% {
+	  text-shadow: 0 0 1vw #FA1C16, 0 0 3vw #FA1C16, 0 0 10vw #FA1C16, 0 0 10vw #FA1C16, 0 0 .4vw #FED128, .5vw .5vw .1vw #806914;
+	  color: #FED128;
+	}
+	50% {
+	  text-shadow: 0 0 .5vw #800E0B, 0 0 1.5vw #800E0B, 0 0 5vw #800E0B, 0 0 5vw #800E0B, 0 0 .2vw #800E0B, .5vw .5vw .1vw #40340A;
+	  color: #806914;
+	}
+  }
+  
+  .flux {
+	animation: flux 2s linear infinite;
+	-moz-animation: flux 2s linear infinite;
+	-webkit-animation: flux 2s linear infinite;
+	-o-animation: flux 2s linear infinite;
+  }
+  
+  @keyframes flux {
+	0%,
+	100% {
+	  text-shadow: 0 0 1vw #1041FF, 0 0 3vw #1041FF, 0 0 10vw #1041FF, 0 0 10vw #1041FF, 0 0 .4vw #8BFDFE, .5vw .5vw .1vw #147280;
+	  color: #28D7FE;
+	}
+	50% {
+	  text-shadow: 0 0 .5vw #082180, 0 0 1.5vw #082180, 0 0 5vw #082180, 0 0 5vw #082180, 0 0 .2vw #082180, .5vw .5vw .1vw #0A3940;
+	  color: #146C80;
+	}
+  }

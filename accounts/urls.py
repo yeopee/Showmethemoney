@@ -19,8 +19,9 @@ from . import views as accounts_views
 app_name = 'accounts'
 
 urlpatterns = [
-    path('test/', accounts_views.accounts_test, name='test'),
     path('login/', accounts_views.login, name='login'),
     path('signout/', accounts_views.signout, name='signout'),
-    path('signup/', accounts_views.signup, name='signup')
+    path('signup/', accounts_views.signup, name='signup'),
+    path('charge-money-without-ad/', accounts_views.chargeMoneyWithoutAd, name='charge-money-without-ad'),
+    path('charge-money-with-ad/', accounts_views.chargeMoneyWithAd, name='charge-money-with-ad'),
 ]

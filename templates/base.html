@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko-kr">
+<html lang="ko">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,8 @@
 	{% load static %}
 
 	<link rel="stylesheet" href="{% static 'css/fullpage.css' %}">
-
+	<link href="https://fonts.googleapis.com/css?family=Lilita+One&display=swap" rel="stylesheet">
+	
 	{% block style %}
 	{% endblock style %}
   
@@ -17,14 +18,23 @@
 <body>
 	<ul id="menu">
 		<li data-menuanchor="MiniGame" class="active">
-			<a href="#MiniGame">MiniGame</a>
+			<a class="nav-link" href="#MiniGame">MiniGame</a>
 		</li>
 		<li data-menuanchor="Lotto">
-			<a href="#Lotto">Analysis</a>
+			<a class="nav-link" href="#Lotto">Analysis</a>
 		</li>
-		<li data-menuanchor="Login">
-			<a href="#Login">Login</a>
-		</li>
+		{% if user.is_authenticated %}
+			<li data-menuanchor="GasStation">
+				<a class="nav-link" href="#GasStation">GasStation</a>
+			</li>
+			<li data-menuanchor="Signout">
+				<a class="nav-link" href="{% url 'accounts:signout' %}">SignOut</a>
+			</li>
+		{% else %}
+			<li data-menuanchor="Login">
+				<a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+			</li>
+		{% endif %}
 	</ul>
 
 	<div id="fullpage">
@@ -33,14 +43,22 @@
 	</div>
 
 	<script src="{% static 'js/fullpage.js' %}"></script>
+	<script src="{% static 'js/fullpage.extensions.min.js' %}"></script>
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 	<script>
 		new fullpage('#fullpage', {
 			// Before Login
 			menu : '#menu',
-			anchors : ['MiniGame', 'Lotto', 'Login'],
-			navigationTooltips: ['MiniGame', 'Lotto', 'Login'],
+
+			{% if user.is_authenticated %}
+				anchors : ['MiniGame', 'Lotto', 'GasStation', 'Signout'],
+				navigationTooltips: ['MiniGame', 'Lotto', 'GasStation'],
+			{% else %}
+				anchors : ['MiniGame', 'Lotto', 'Login'],
+				navigationTooltips: ['MiniGame', 'Lotto'],
+			{% endif %}
 
 			// After Login
 
@@ -53,7 +71,9 @@
 			slidesNavPosition : 'bottom',
 
 			// Design
-			sectionsColor: ['#000000', '#000000', '#000000', '#000000', '#000000']
+			autoScrolling : true,
+			scrollHorizontally : true,
+			sectionsColor: ['#ffffff', '#ffffff']
 		});
 	</script>
 

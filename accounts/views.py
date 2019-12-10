@@ -1,10 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
+from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
 from .models import CustomUser
+
+import json
 
 # Create your views here.
 
@@ -64,3 +67,37 @@ def signup(request):
     }
 
     return render(request, 'signup.html', context)
+
+@login_required
+def chargeMoneyWithoutAd(request):
+    if request.method == 'POST' and request.is_ajax:
+        user = CustomUser.objects.get(id=request.user.id)
+        user.money += 1
+        user.save()
+
+        money = user.money
+
+        context = {
+            'money' : money
+        }
+
+        return HttpResponse(json.dumps(context), content_type='application/json')
+    
+    return HttpResponse(status=403)
+
+@login_required
+def chargeMoneyWithAd(request):
+    if request.method == 'POST' and request.is_ajax:
+        user = CustomUser.objects.get(id=request.user.id)
+        user.money += 500
+        user.save()
+
+        money = user.money
+
+        context = {
+            'money' : money
+        }
+
+        return HttpResponse(json.dumps(context), content_type='application/json')
+    
+    return HttpResponse(status=403)
