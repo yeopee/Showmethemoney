@@ -74,12 +74,6 @@
     {% endif %}
 </div>
 
-<dialog>
-<p>this is an html dialog</p>
-<button id="close">닫기</button>
-</dialog>
-{% endif %}
-
 {% endblock content %}
 
 {% block script %}
@@ -134,7 +128,18 @@
         });
     });
 
+    function butyb(){
+        Swal.fire({
+            icon: 'info',
+            html:
+                `<video class="video" type="video/mp4" src="{% static 'video/index_background_2.mp4' %}" muted autoplay></video>`,
+            showCloseButton: true
+        })
+    };
+
     $('#charge-money-with-ad').click(function () {
+        butyb();
+        
         $.ajax({
             url: "{% url 'accounts:charge-money-with-ad' %}",
             method: "POST",
@@ -152,20 +157,6 @@
                 }
             }
         });
-
-        var dialog = document.querySelector('dialog');
-        document.querySelector('#charge-money-with-ad').onclick = function(){
-            butyb();
-        };
-        
-        function butyb(){
-            Swal.fire({
-               icon: 'info',
-               html:
-                'You can use <b>bold text</b>, ' +
-                '     <iframe id="myVideo" src="https://www.youtube.com/embed/vOwM-2srAJY?version=3&controls=0&loop=1&playlist=vOwM-2srAJY&modestbranding=1&playsinline=0&rel=0" frameborder="0" muted ></iframe>' ,
-               showCloseButton: true,
-            })
-        };
+    });
     </script>
 {% endblock script %}
