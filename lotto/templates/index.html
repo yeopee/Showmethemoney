@@ -37,7 +37,7 @@
             <h2>당신의 운을 시험해 보세요 !!</h2>
 
             <button class="button">
-                <a class="blink" href="#">500 won!!</a>
+                <a class="blink" href="{% url 'lottogame:game' %}">500 won!!</a>
             </button>
         </div>
     </div>
@@ -73,6 +73,12 @@
     </div>
     {% endif %}
 </div>
+
+<dialog>
+<p>this is an html dialog</p>
+<button id="close">닫기</button>
+</dialog>
+{% endif %}
 
 {% endblock content %}
 
@@ -146,6 +152,20 @@
                 }
             }
         });
-    });
-</script>
+
+        var dialog = document.querySelector('dialog');
+        document.querySelector('#charge-money-with-ad').onclick = function(){
+            butyb();
+        };
+        
+        function butyb(){
+            Swal.fire({
+               icon: 'info',
+               html:
+                'You can use <b>bold text</b>, ' +
+                '     <iframe id="myVideo" src="https://www.youtube.com/embed/vOwM-2srAJY?version=3&controls=0&loop=1&playlist=vOwM-2srAJY&modestbranding=1&playsinline=0&rel=0" frameborder="0" muted ></iframe>' ,
+               showCloseButton: true,
+            })
+        };
+    </script>
 {% endblock script %}

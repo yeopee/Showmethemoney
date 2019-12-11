@@ -1,15 +1,16 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponseRedirect,resolve_url
 from django.http import HttpResponse
 from accounts.models import CustomUser
 
 # Create your views here.
 
 def index(request):
+    #urlstr = 'lotto/#GasStation'
     if not request.user.is_authenticated:
         return HttpResponse(status=403)
     user = CustomUser.objects.get(id=request.user.id)
     if user.money < 500:
-        return redirect('lotto:index')
+        return redirect('/lotto/#GasStation')
         #포인트 채우는 url로 보내줍시다 .
     return render(request,'game.html')
 
