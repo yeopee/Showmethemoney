@@ -215,23 +215,41 @@
  {% endblock  %}
 
  {% block content %}
- <div class="container1 row">
+ <ul id="menu">
+    <li data-menuanchor="MiniGame" class="active">
+        <a class="nav-link" href="{% url 'lotto:index' %}">Home</a>
+    </li>
+    <li data-menuanchor="Signout">
+        <a class="nav-link" href="{% url 'accounts:signout' %}">SignOut</a>
+    </li>
+</ul>
+<div id="fullpage">
+    <div class="section">
+        <div class="container1 row">
 
      <div class="box1 col-md-12">
+        <div class="text-center">
         <h2>MINI LOTTO</h2>
         <h3 style="test-align:right">한 게임당 500 Point 입니다.</h3>
+        <h3>번호를 누르시고 결과보기을 눌러 보세요</h3>
+        <h3>눌렀던 번호를 취소 하고 싶으면 번호를 한번 더 눌러 주세요</h3>
+        </div>
          <div class="wrap" >
 
              <div class="lottery-nums col-md-6" style="display:inline-block;"></div>
 
              <!-- result number and submit button-->
              <div class="test" style="display:inline-block;  height: 616px;">
-                 <div style="padding-top: 300px;">
+                 <div style="padding-top: 200px;">
+                 <div style="display: table-cell; vertical-align:middle; text-align:center; width:350px;">
                      <div class="lottery-result"><span id="select_number">선택한 번호 :</span></div>
-
+                     <br>
+                     <br>
                      <div class="lotto_submit" style="display:inline-block;">
                          <button class="btn btn-info btn-lottery">결과 보기</button>
                      </div>
+                     </div>
+
                  </div>
              </div>
 
@@ -251,22 +269,57 @@
                  <div class="ball red">?</div>
                  <div class="ball grey">?</div>
              </div>
+             
              <p>Price</p>
+             <br>
+             <div style="text-align:left;">
              <p>1개 맞추면 point:100 획득!</p>
              <p>2개 맞추면 point:300 획득!</p>
              <p>3개 맞추면 point:500 획득!</p>
              <p>4개 맞추면 point:800 획득!</p>
              <p>5개 맞추면 point:1000 획득!</p>
              <p>6개 맞추면 point:2000 획득!</p>
-             <p id="result_str">당신이 맞춘 갯수는 얼마입니다.</p>
+             </div>
+             <br>
+             <p id="result_str"></p>
          </div>
      </div>
  </div>
+    </div>
+</div>
  {% endblock  %}
 
 
 
  {% block script %}
+ <script src="{% static 'js/fullpage.scrolloverflow.js' %}"></script>
+ 
+ <script>
+   new fullpage('#fullpage', {
+        // Before Login
+        menu: '#menu',
+
+            anchors: ['Home', 'Signout'],
+            navigationTooltips: ['Home', 'Signout'],
+            sectionsColor: ['#ffffff', '#000000', '#000000'],
+       
+     
+
+        // After Login
+
+        // Navigation
+        navigation: true,
+        navigationPosition: 'right',
+        showActiveTooltip: true,
+
+        slidesNavigation: true,
+        slidesNavPosition: 'bottom',
+
+        // Design
+        autoScrolling: true,
+        scrollOverflow : true
+    });
+ </script>
  <script>
      $(function () {
          $('.container2').hide();
@@ -338,7 +391,7 @@
                          elem.innerText = numbers[random],
                          numbers.splice(random, 1)
                      resultN.push(elem.innerText);
-                 }, time * 1500 + 1500)
+                 }, time * 1500 )
              }
 
              function lottery() {
@@ -374,7 +427,9 @@
             } ,
             
             success : function(data){
-                console.log(data)
+                console.log("성공")
+                document.getElementById("result_str").innerHTML= "축하합니다<br>" +"당신이 맞춘 갯수는 :"+ cnt +"개 입니다";
+
         	},
             
             error : function(data){
@@ -382,10 +437,6 @@
             }
             })
 
-            var result_position = $('#result_str');
-            var input = cnt;
-
-            result_position.innerText(input);
 
         }
      });
