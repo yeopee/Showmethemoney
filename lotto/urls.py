@@ -24,5 +24,6 @@ urlpatterns = [
     path('lotto/', lotto_views.lotto, name='lotto'),
     path('request_lotto_number_sum/', lotto_views.request_lotto_number_sum, name='request_lotto_number_sum'),
     path('request_lotto_number_each_win_count/', lotto_views.request_lotto_number_each_win_count, name='request_lotto_number_each_win_count'),
-    path('request_lotto_number_duration_win_count/', lotto_views.request_lotto_number_duration_win_count, name='request_lotto_number_duration_win_count')
+    path('request_lotto_number_duration_win_count/', lotto_views.request_lotto_number_duration_win_count, name='request_lotto_number_duration_win_count'),
+    path('request_lotto_number_year_win_count/', lotto_views.request_lotto_number_year_win_count, name='request_lotto_number_year_win_count')
 ]

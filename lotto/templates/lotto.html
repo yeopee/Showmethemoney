@@ -7,10 +7,7 @@
 
 {% block content %}
 <ul id="menu">
-    <li data-menuanchor="Lotto" class="active">
-        <a class="nav-link" href="#Lotto">Lotto</a>
-    </li>
-    <li data-menuanchor="Sum">
+    <li data-menuanchor="Sum" class="active">
         <a class="nav-link" href="#Sum">Sum</a>
     </li>
     <li data-menuanchor="Each">
@@ -22,9 +19,6 @@
 </ul>
 
 <div id="fullpage">
-    <div class="section">
-        {{ sum_lotto_data }}
-    </div>
     <div class="section">
         <h2>숫자 별 총 당첨 횟수</h2>
         <div class="chart" style="position: relative; height:70vh; width:100vw">
@@ -47,7 +41,7 @@
 
     <script>
         function get_lotto_number_year_win_count(number, year) {
-
+            
         };
 
         function BuildChart(labels, values, chartTitle, id, type) {
@@ -186,9 +180,9 @@
 		new fullpage('#fullpage', {
 			menu : '#menu',
 
-            anchors : ['Lotto', 'Sum','Each','Home'],
-            navigationTooltips: ['Lotto', 'Sum', 'Each'],
-            sectionsColor: ['#000000', '#000000', '#000000'],
+            anchors : ['Sum','Each','Home'],
+            navigationTooltips: ['Sum', 'Each'],
+            sectionsColor: ['#000000', '#000000'],
 
             slidesNavigation: true,
             slidesNavPosition: 'bottom',
