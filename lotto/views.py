@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 from . import parse_lotto
 import json
+import random
 
 from accounts.forms import CustomUserCreationForm, CustomAuthenticationForm
 from accounts.models import CustomUser
@@ -77,6 +78,17 @@ def request_lotto_number_year_win_count(request):
         return HttpResponse(json.dumps(context), content_type='application/json')
 
     return HttpResponse(status=403)
+
+@login_required
+def request_lotto_number_expectation(request):
+    expectation = random.sample(range(1,46), 7)
+
+    context = {
+        'expectation' : expectation
+    }
+
+    return HttpResponse(json.dumps(context), content_type='application/json')
+
 # lotto_data_test
 #       This function is for testing lotto_data
 
