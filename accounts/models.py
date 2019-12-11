@@ -5,3 +5,6 @@ from django.contrib.auth.models import AbstractUser
 
 class CustomUser(AbstractUser):
     money = models.IntegerField(default=1000)
+
+    def get_username(self):
+        return self.username.split('@')[0]

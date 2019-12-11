@@ -406,3 +406,25 @@ def get_lotto_number_each_win_count(total_numbers):
                 lotto_number_each_win[number][count] = 0
     
     return collections.OrderedDict(sorted(lotto_number_each_win.items()))
+
+def get_lotto_number_duration_win_count(total_numbers):
+    lotto_number_duration_win = {}
+
+    for count, numbers in total_numbers.items():
+        year = numbers['date'].split('-')[0]
+
+        for number in numbers['numbers']:
+            if lotto_number_duration_win.get(number) == None:
+                lotto_number_duration_win[number] = {}
+            
+            if lotto_number_duration_win[number].get(year) == None:
+                lotto_number_duration_win[number][year] = 0
+
+            lotto_number_duration_win[number][year] += 1
+    
+    return collections.OrderedDict(sorted(lotto_number_duration_win.items()))
+
+def get_lotto_number_year_win_count(total_numbers, target, target_year):
+    lotto_number_year_win_count = {}
+
+    pass

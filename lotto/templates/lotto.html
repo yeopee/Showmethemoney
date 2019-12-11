@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block style %}
+{% endblock style %}
+
+{% block content %}
+<ul id="menu">
+    <li data-menuanchor="Lotto" class="active">
+        <a class="nav-link" href="#Lotto">Lotto</a>
+    </li>
+    <li data-menuanchor="Sum">
+        <a class="nav-link" href="#Sum">Sum</a>
+    </li>
+    <li data-menuanchor="Each">
+        <a class="nav-link" href="#Each">Each</a>
+    </li>
+    <li data-menuanchor="Home">
+        <a class="nav-link" href="{% url 'lotto:index' %}">Home</a>
+    </li>
+</ul>
+
+<div id="fullpage">
+    <div class="section">
+        {{ sum_lotto_data }}
+    </div>
+    <div class="section">
+        <h2>숫자 별 총 당첨 횟수</h2>
+        <div class="chart" style="position: relative; height:70vh; width:100vw">
+            <canvas id="lotto_number_sum"></canvas>
+        </div>
+    </div>
+    <div class="section">
+        {% for number in numbers %}
+            <div class="slide" id="each_win_count_{{ number }}">
+                <h2>숫자 별 당첨 분포</h2>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
+
+{% block script %}
+    <script src="{% static 'js/fullpage.scrolloverflow.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+    <script>
+        function get_lotto_number_year_win_count(number, year) {
+
+        };
+
+        function BuildChart(labels, values, chartTitle, id, type) {
+            var data = {
+                labels: labels,
+                datasets: [{
+                    label: chartTitle, // Name the series
+                    data: values,
+                    backgroundColor: 'rgb(255, 255, 255)',
+                }],
+            };
+
+            var canvas = document.getElementById(id);
+            var ctx = canvas.getContext('2d');
+
+            Chart.defaults.global.defaultFontColor = 'white';
+            Chart.defaults.global.defaultFontFamily = "'Lilita One', cursive";
+            Chart.defaults.global.defaultFontSize = 20;
+
+            if (chartTitle.split(' ')[2] == '분포') {
+                var myChart = new Chart(ctx, {
+                    type: type,
+                    data: data,
+                    options: {
+                        responsive: true, // Instruct chart js to respond nicely.
+                        maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
+                        scales: {
+                            xAxes: [{
+                                    scaleLabel: {
+                                    display: true,
+                                    labelString: '년도'
+                                }
+                            }],
+                            yAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: '숫자'
+                                }
+                            }]
+                        }
+                    }
+                });
+
+                canvas.onclick = function(event) {
+                    var activePoints = myChart.getElementsAtEvent(event);
+
+                    if (activePoints[0]) {
+                        var chartData = activePoints[0]['_chart'].config.data;
+                        var idx = activePoints[0]['_index'];
+
+                        var label = chartData.labels[idx];
+                        var value = chartData.datasets[0].data[idx];
+                        var chartLabel = chartData.datasets[0].label.split(' ')[0];
+
+                        console.log(chartLabel);
+                        console.log(label);
+                    }
+                };
+            }
+
+            else {
+                var myChart = new Chart(ctx, {
+                    type: type,
+                    data: data,
+                    options: {
+                        responsive: true, // Instruct chart js to respond nicely.
+                        maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height
+                        scales: {
+                            xAxes: [{
+                                    scaleLabel: {
+                                    display: true,
+                                    labelString: '당첨횟수'
+                                }
+                            }],
+                            yAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: '숫자'
+                                }
+                            }]
+                        }
+                    }
+                });
+            }
+
+            return myChart;
+        }
+
+        function get_lotto_number_sum() {
+            $.ajax({
+                url : "{% url 'lotto:request_lotto_number_sum' %}",
+                method : 'GET',
+
+                success : function(data){
+                    BuildChart(Object.keys(data.sum_lotto_data), Object.values(data.sum_lotto_data), "총 당첨 횟수", 'lotto_number_sum' ,'bar');
+                },
+
+                fail : function(data){
+
+                }
+            });
+        };
+
+        function get_lotto_number_each_win_count() {
+            $.ajax({
+                url : "{% url 'lotto:request_lotto_number_duration_win_count' %}",
+                method : 'GET',
+
+                success : function(data){
+                    $(Object.entries(data.lotto_number_duration_win_count)).each(function(idx, item){
+                        var id = 'each_win_count_chart' + item[0];
+                        var divTag = `
+                            <div class="chart" style="position: relative; height:70vh; width:100vw">
+                                <canvas id="${id}"></canvas>
+                            </div>`;
+
+                        $('#each_win_count_' + item[0] + ' .fp-tableCell').append(divTag);
+
+                        BuildChart(Object.keys(item[1]), Object.values(item[1]), item[0] + ' 당첨 분포', id, 'bar');
+                    });
+                },
+
+                fail : function(data){
+
+                }
+            });
+        };
+
+        $(document).ready(function(){
+            get_lotto_number_sum();
+            get_lotto_number_each_win_count();
+        });
+    </script>
+
+    <script>
+		new fullpage('#fullpage', {
+			menu : '#menu',
+
+            anchors : ['Lotto', 'Sum','Each','Home'],
+            navigationTooltips: ['Lotto', 'Sum', 'Each'],
+            sectionsColor: ['#000000', '#000000', '#000000'],
+
+            slidesNavigation: true,
+            slidesNavPosition: 'bottom',
+            
+			// Design
+			autoScrolling : true
+		});
+
+        {% comment %} $('#video').YTPlayer({
+            fitToBackground: true,
+            videoId: 'vOwM-2srAJY',
+            playerVars: {
+                modestbranding: 0,
+                autoplay: 1,
+                controls: 0,
+                showinfo: 0,
+                branding: 0,
+                rel: 0,
+                autohide: 0,
+                loop : 1
+            }
+        }); {% endcomment %}
+	</script>
+{% endblock script %}

@@ -6,121 +6,146 @@
 {% endblock style %}
 
 {% block content %}
-<div class="section">
-    <iframe id="myVideo" src="https://www.youtube.com/embed/vOwM-2srAJY?version=3&controls=0&loop=1&playlist=vOwM-2srAJY&modestbranding=1&playsinline=0&rel=0" frameborder="0" muted ></iframe>
+<ul id="menu">
+    <li data-menuanchor="MiniGame" class="active">
+        <a class="nav-link" href="#MiniGame">MiniGame</a>
+    </li>
+    <li data-menuanchor="Lotto">
+        <a class="nav-link" href="#Lotto">Analysis</a>
+    </li>
+    {% if user.is_authenticated %}
+    <li data-menuanchor="GasStation">
+        <a class="nav-link" href="#GasStation">GasStation</a>
+    </li>
+    <li data-menuanchor="Signout">
+        <a class="nav-link" href="{% url 'accounts:signout' %}">SignOut</a>
+    </li>
+    {% else %}
+    <li data-menuanchor="Login">
+        <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+    </li>
+    {% endif %}
+</ul>
 
-    <div class="layer">
-        <h1 class="neon">Jack<span class="flux">Pot</span></h1>
-        <h2>미니게임으로</h2>
-        <h2>당신의 운을 시험해 보세요 !!</h2>
+<div id="fullpage">
+    <div class="section">
+        <video class="video" type="video/mp4" src="{% static 'video/index_background_1.mp4' %}" muted loop data-autoplay></video>
 
-        <button class="button">
-            <a href="#">500 won!!</a>
-        </button>
+        <div class="layer">
+            <h1 class="neon">Jack<span class="flux">Pot</span></h1>
+            <h2>미니게임으로</h2>
+            <h2>당신의 운을 시험해 보세요 !!</h2>
+
+            <button class="button">
+                <a class="blink" href="#">500 won!!</a>
+            </button>
+        </div>
     </div>
-</div>
 
-<div class="section">
-    <div class="layer">
-        <h1 class="neon">Lotto</h1>
-        <h2>다음 회차에</h2>
-        <h2>무엇이 나올지 예상해 보세요 !!</h2>
+    <div class="section">
+        <video class="video" type="video/mp4" src="{% static 'video/index_background_2.mp4' %}" muted loop data-autoplay></video>
 
-        <button class="button">
-            <a href="#">1000 won!!</a>
-        </button>
+        <div class="layer">
+            <h1 class="neon">Lotto</h1>
+            <h2>다음 회차에</h2>
+            <h2>무엇이 나올지 예상해 보세요 !!</h2>
+
+            <button class="button">
+                <a class="blink" href="{% url 'lotto:lotto' %}">1000 won!!</a>
+            </button>
+        </div>
     </div>
-</div>
 
-{% if user.is_authenticated %}
-<div class="section">
-    <div class="layer">
-        <h1 class="flux">{{ user.username }}</h1>
-        <h2>가지고 있는 금액은</h2>
-        <h2 id="user-money">{{user.money}}원 입니다.</h2>
-       
-        <button class="button">
-            <a id="charge-money-without-ad" href="#">금액 충전하기 !!</a>
-        </button>
-        <button class="button">
-            <a id="charge-money-with-ad" href="#">광고 보고 500원 충전하기 !!</a>
-        </button>
+    {% if user.is_authenticated %}
+    <div class="section">
+        <div class="layer">
+            <h1 class="flux">{{ user.get_username }}</h1>
+            <h2>가지고 있는 금액은</h2>
+            <h2 id="user-money">{{user.money}}원 입니다.</h2>
+
+            <button class="button">
+                <a class="blink" id="charge-money-without-ad" href="#">금액 충전하기 !!</a>
+            </button>
+            <button class="button">
+                <a class="blink" id="charge-money-with-ad" href="#">광고 보고 500원 충전하기 !!</a>
+            </button>
+        </div>
     </div>
+    {% endif %}
 </div>
-{% endif %}
 
 {% endblock content %}
 
 {% block script %}
-    <script>
-		new fullpage('#fullpage', {
-			// Before Login
-			menu : '#menu',
+<script>
+    new fullpage('#fullpage', {
+        // Before Login
+        menu: '#menu',
 
-			{% if user.is_authenticated %}
-				anchors : ['MiniGame', 'Lotto', 'GasStation', 'Signout'],
-				navigationTooltips: ['MiniGame', 'Lotto', 'GasStation'],
-			{% else %}
-				anchors : ['MiniGame', 'Lotto', 'Login'],
-				navigationTooltips: ['MiniGame', 'Lotto'],
-			{% endif %}
+        {% if user.is_authenticated %}
+            anchors: ['MiniGame', 'Lotto', 'GasStation', 'Signout'],
+            navigationTooltips: ['MiniGame', 'Lotto', 'GasStation'],
+            sectionsColor: ['#000000', '#000000', '#000000'],
+        {% else %}
+            anchors: ['MiniGame', 'Lotto', 'Login'],
+            navigationTooltips: ['MiniGame', 'Lotto'],
+            sectionsColor: ['#000000', '#000000'],
+        {% endif %}
 
-			// After Login
+        // After Login
 
-			// Navigation
-			navigation: true,
-			navigationPosition: 'right',
-			showActiveTooltip: true,
-			
-			slidesNavigation : true,
-			slidesNavPosition : 'bottom',
+        // Navigation
+        navigation: true,
+        navigationPosition: 'right',
+        showActiveTooltip: true,
 
-			// Design
-			autoScrolling : true,
-			scrollHorizontally : true,
-			sectionsColor: ['#ffffff', '#ffffff']
-		});
-	</script>
+        slidesNavigation: true,
+        slidesNavPosition: 'bottom',
 
-    <script>
-        $('#charge-money-without-ad').click(function(){
-            $.ajax({
-                url : "{% url 'accounts:charge-money-without-ad' %}",
-                method : "POST",
-                data : {
-                    csrfmiddlewaretoken : '{{ csrf_token }}'
-                },
+        // Design
+        autoScrolling: true
+    });
+</script>
 
-                success : function(data) {
-                    $('#user-money').text(data.money + '원 입니다');
-                },
+<script>
+    $('#charge-money-without-ad').click(function () {
+        $.ajax({
+            url: "{% url 'accounts:charge-money-without-ad' %}",
+            method: "POST",
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
 
-                fail : function(data) {
-                    if (data.status == 403) {
-                        alert('잘못된 접근입니다.');
-                    }
+            success: function (data) {
+                $('#user-money').text(data.money + '원 입니다');
+            },
+
+            fail: function (data) {
+                if (data.status == 403) {
+                    alert('잘못된 접근입니다.');
                 }
-            });
+            }
         });
+    });
 
-        $('#charge-money-with-ad').click(function(){
-            $.ajax({
-                url : "{% url 'accounts:charge-money-with-ad' %}",
-                method : "POST",
-                data : {
-                    csrfmiddlewaretoken : '{{ csrf_token }}'
-                },
+    $('#charge-money-with-ad').click(function () {
+        $.ajax({
+            url: "{% url 'accounts:charge-money-with-ad' %}",
+            method: "POST",
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
 
-                success : function(data) {
-                    $('#user-money').text(data.money + '원 입니다');
-                },
+            success: function (data) {
+                $('#user-money').text(data.money + '원 입니다');
+            },
 
-                fail : function(data) {
-                    if (data.status == 403) {
-                        alert('잘못된 접근입니다.');
-                    }
+            fail: function (data) {
+                if (data.status == 403) {
+                    alert('잘못된 접근입니다.');
                 }
-            });
+            }
         });
-    </script>
+    });
+</script>
 {% endblock script %}

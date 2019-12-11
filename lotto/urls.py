@@ -14,15 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-
 from django.urls import path
 from . import views as lotto_views
 
 app_name = 'lotto'
 
 urlpatterns = [
-    path('test/', lotto_views.lotto_data_test, name='test'),
     path('', lotto_views.index, name='index'),
-    path('highchart/',lotto_views.lotto_data_highchaet, name='highchart'),
-    path('test2/', lotto_views.lotto_data_test2, name='test2')
+    path('lotto/', lotto_views.lotto, name='lotto'),
+    path('request_lotto_number_sum/', lotto_views.request_lotto_number_sum, name='request_lotto_number_sum'),
+    path('request_lotto_number_each_win_count/', lotto_views.request_lotto_number_each_win_count, name='request_lotto_number_each_win_count'),
+    path('request_lotto_number_duration_win_count/', lotto_views.request_lotto_number_duration_win_count, name='request_lotto_number_duration_win_count')
 ]

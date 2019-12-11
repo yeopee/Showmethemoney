@@ -17,34 +17,11 @@
 	<title>Touch The JackPot - Show Me The Money</title>
 </head>
 <body>
-	<ul id="menu">
-		<li data-menuanchor="MiniGame" class="active">
-			<a class="nav-link" href="#MiniGame">MiniGame</a>
-		</li>
-		<li data-menuanchor="Lotto">
-			<a class="nav-link" href="#Lotto">Analysis</a>
-		</li>
-		{% if user.is_authenticated %}
-			<li data-menuanchor="GasStation">
-				<a class="nav-link" href="#GasStation">GasStation</a>
-			</li>
-			<li data-menuanchor="Signout">
-				<a class="nav-link" href="{% url 'accounts:signout' %}">SignOut</a>
-			</li>
-		{% else %}
-			<li data-menuanchor="Login">
-				<a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
-			</li>
-		{% endif %}
-	</ul>
-
-	<div id="fullpage">
-		{% block content %}
-		{% endblock content %}
-	</div>
+	{% block content %}
+	{% endblock content %}
 
 	<script src="{% static 'js/fullpage.js' %}"></script>
-	<script src="{% static 'js/fullpage.extensions.min.js' %}"></script>
+	{% comment %} <script src="{% static 'js/fullpage.extensions.min.js' %}"></script> {% endcomment %}
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
