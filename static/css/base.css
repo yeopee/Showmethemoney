@@ -255,15 +255,15 @@ p {
 */
 .neon {
 	color: #FB4264;
-	font-size: 20vw;
-	line-height: 9vw;
+	font-size: 12vw;
+	line-height: 8vw;
 	text-shadow: 0 0 3vw #F40A35;
 }
 
 .flux {
 	color: #426DFB;
-	font-size: 20vw;
-	line-height: 9vw;
+	font-size: 12vw;
+	line-height: 8vw;
 	text-shadow: 0 0 3vw #2356FF;
 }
 
