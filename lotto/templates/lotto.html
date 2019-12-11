@@ -13,6 +13,9 @@
     <li data-menuanchor="Each">
         <a class="nav-link" href="#Each">Each</a>
     </li>
+    <li data-menuanchor="Expectation">
+        <a class="nav-link" href="#Expectation">Expectation</a>
+    </li>
     <li data-menuanchor="Home">
         <a class="nav-link" href="{% url 'lotto:index' %}">Home</a>
     </li>
@@ -32,6 +35,18 @@
             </div>
         {% endfor %}
     </div>
+    <div class="section">
+        <h2>예상 로또 번호는?</h2>
+
+        <h1 class="ball number"></h1>
+        <h1 class="ball number"></h1>
+        <h1 class="ball number"></h1>
+        <h1 class="ball number"></h1>
+        <h1 class="ball number"></h1>
+        <h1 class="ball number"></h1>
+        <h1 class="ball">+</h1>
+        <h1 class="ball number"></h1>
+    </div>
 </div>
 {% endblock content %}
 
@@ -40,6 +55,23 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
     <script>
+        function get_lotto_number_expectation() {
+            $.ajax({
+                url : "{% url 'lotto:request_lotto_number_expectation' %}",
+                method : 'GET',
+
+                success : function(data){
+                    $(data.expectation).each(function(idx, item){
+                        $('.ball.number').eq(idx).text(item);
+                    });
+                },
+
+                fail : function(data){
+
+                }
+            });
+        }
+
         function get_lotto_number_year_win_count(number, year) {
             
         };
@@ -173,6 +205,7 @@
         $(document).ready(function(){
             get_lotto_number_sum();
             get_lotto_number_each_win_count();
+            get_lotto_number_expectation();
         });
     </script>
 
@@ -180,9 +213,9 @@
 		new fullpage('#fullpage', {
 			menu : '#menu',
 
-            anchors : ['Sum','Each','Home'],
-            navigationTooltips: ['Sum', 'Each'],
-            sectionsColor: ['#000000', '#000000'],
+            anchors : ['Sum','Each','Expectation','Home'],
+            navigationTooltips: ['Sum', 'Each','Expectation'],
+            sectionsColor: ['#000000', '#000000', '#000000'],
 
             slidesNavigation: true,
             slidesNavPosition: 'bottom',

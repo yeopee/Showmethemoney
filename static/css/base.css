@@ -255,15 +255,15 @@ p {
 */
 .neon {
 	color: #FB4264;
-	font-size: 12vw;
-	line-height: 8vw;
+	font-size: 10vw;
+	line-height: 6vw;
 	text-shadow: 0 0 3vw #F40A35;
 }
 
 .flux {
 	color: #426DFB;
-	font-size: 12vw;
-	line-height: 8vw;
+	font-size: 10vw;
+	line-height: 6vw;
 	text-shadow: 0 0 3vw #2356FF;
 }
 
@@ -330,3 +330,18 @@ p {
 	-webkit-animation-timing-function: ease-in-out;
 	-webkit-animation-direction: alternate;
 }
+
+.ball {
+	display: inline-block;
+	width: 10vw;
+	height: 10vw;
+	margin: 30px auto 0;
+	padding-top: 1vw;
+	background-color: #ffffff;
+	border-radius: 50%;
+	box-shadow: inset -25px -25px 40px rgba(0,0,0,.5);
+	background-image: -webkit-linear-gradient(-45deg, rgba(255,255,220,.2) 0%, transparent 100%);
+	background-image: -moz-linear-gradient(-45deg, rgba(255,255,220,.2) 0%, transparent 100%);  
+	background-image: -o-linear-gradient(-45deg, rgba(255,255,220,.2) 0%, transparent 100%);
+	background-image: -ms-linear-gradient(-45deg, rgba(255,255,220,.2) 0%, transparent 100%);
+  }
