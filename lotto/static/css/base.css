@@ -113,8 +113,8 @@ body {
 
 h1 {
 	font-weight: bold;
-	font-size: 20vw;
-	line-height: 9vw;
+	font-size: 10vw;
+	line-height: 6vw;
 	color: red;
 	margin-bottom: 0.1em;
 }
@@ -255,15 +255,15 @@ p {
 */
 .neon {
 	color: #FB4264;
-	font-size: 20vw;
-	line-height: 9vw;
+	font-size: 10vw;
+	line-height: 6vw;
 	text-shadow: 0 0 3vw #F40A35;
 }
 
 .flux {
 	color: #426DFB;
-	font-size: 20vw;
-	line-height: 9vw;
+	font-size: 10vw;
+	line-height: 6vw;
 	text-shadow: 0 0 3vw #2356FF;
 }
 

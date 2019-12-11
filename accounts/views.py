@@ -18,8 +18,6 @@ def login(request):
     if request.user.is_authenticated:
         return redirect('lotto:index')
 
-    message = ''
-
     if request.method == 'POST':
         form = CustomAuthenticationForm(request, request.POST)
 
@@ -27,15 +25,9 @@ def login(request):
             user = form.get_user()
             auth_login(request, user)
 
-            return redirect(request.GET.get('next') or 'lotto:index')
+            return redirect(request.POST.get('next') or 'lotto:index')
 
-        message = 'Please, Check your id or password'
-
-    context = {
-        'message' : message
-    }
-
-    return render(request, 'signin.html', context)
+    return render(request, 'signin.html')
 
 def signout(request):
     if request.user.is_authenticated:
@@ -49,8 +41,6 @@ def signup(request):
     if request.user.is_authenticated:
         return redirect('lotto:index')
 
-    message = ''
-
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
 
@@ -60,13 +50,7 @@ def signup(request):
 
             return redirect('lotto:index')
 
-        message = 'Please, Check your id or password'
-
-    context = {
-        'message' : message
-    }
-
-    return render(request, 'signup.html', context)
+    return render(request, 'signup.html')
 
 @login_required
 def chargeMoneyWithoutAd(request):

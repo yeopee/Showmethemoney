@@ -61,6 +61,22 @@ def request_lotto_number_duration_win_count(request):
 
     return HttpResponse(json.dumps(context), content_type='application/json')
     
+@login_required
+def request_lotto_number_year_win_count(request):
+    target_year = int(request.GET.get('year'))
+    target_number = int(request.GET.get('number'))
+
+    if target_year != None and target_number != None:
+        lotto_data = parse_lotto.get_all_lotto_data()
+        lotto_number_year_win_count = parse_lotto.get_lotto_number_year_win_count(lotto_data, target_number, target_year)
+
+        context = {
+            'lotto_number_year_win_count' : lotto_number_year_win_count
+        }
+
+        return HttpResponse(json.dumps(context), content_type='application/json')
+
+    return HttpResponse(status=403)
 # lotto_data_test
 #       This function is for testing lotto_data
 
