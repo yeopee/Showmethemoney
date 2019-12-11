@@ -15,7 +15,7 @@
         <h2>당신의 운을 시험해 보세요 !!</h2>
 
         <button class="button">
-            <a href="#">500 won!!</a>
+            <a href="{% url 'lottogame:game' %}">500 won!!</a>
         </button>
     </div>
 </div>
@@ -42,11 +42,15 @@
         <button class="button">
             <a id="charge-money-without-ad" href="#">금액 충전하기 !!</a>
         </button>
-        <button class="button">
-            <a id="charge-money-with-ad" href="#">광고 보고 500원 충전하기 !!</a>
+        <button class="button" id="charge-money-with-ad">
+            광고 보고 500원 충전하기 !!
         </button>
     </div>
 </div>
+<dialog>
+<p>this is an html dialog</p>
+<button id="close">닫기</button>
+</dialog>
 {% endif %}
 
 {% endblock content %}
@@ -122,5 +126,19 @@
                 }
             });
         });
+        var dialog = document.querySelector('dialog');
+        document.querySelector('#charge-money-with-ad').onclick = function(){
+            butyb();
+        };
+        
+        function butyb(){
+            Swal.fire({
+         icon: 'info',
+         html:
+    'You can use <b>bold text</b>, ' +
+    '     <iframe id="myVideo" src="https://www.youtube.com/embed/vOwM-2srAJY?version=3&controls=0&loop=1&playlist=vOwM-2srAJY&modestbranding=1&playsinline=0&rel=0" frameborder="0" muted ></iframe>' ,
+     showCloseButton: true,
+            })
+        };
     </script>
 {% endblock script %}
