@@ -1,7 +1,10 @@
  {% extends 'base.html' %}
 
+{% load static %}
  {% block style %}
+
  <style>
+
  span#select_number{
  font-size:1.7em;
  }
@@ -213,10 +216,11 @@
 
  {% block content %}
  <div class="container1 row">
- <h1>MINI LOTTO</h1>
- <h2>한 게임당 500 Point 입니다.</h2>
+
      <div class="box1 col-md-12">
-         <div class="wrap">
+        <h2>MINI LOTTO</h2>
+        <h3 style="test-align:right">한 게임당 500 Point 입니다.</h3>
+         <div class="wrap" >
 
              <div class="lottery-nums col-md-6" style="display:inline-block;"></div>
 
@@ -226,7 +230,7 @@
                      <div class="lottery-result"><span id="select_number">선택한 번호 :</span></div>
 
                      <div class="lotto_submit" style="display:inline-block;">
-                         <button class="btn btn-info btn-lottery">제출</button>
+                         <button class="btn btn-info btn-lottery">결과 보기</button>
                      </div>
                  </div>
              </div>
