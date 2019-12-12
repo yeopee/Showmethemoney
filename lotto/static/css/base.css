@@ -336,6 +336,7 @@ p {
 	width: 10vw;
 	height: 10vw;
 	margin: 30px auto 0;
+	margin-left: 15px;
 	padding-top: 1vw;
 	background-color: #ffffff;
 	border-radius: 50%;
@@ -344,4 +345,14 @@ p {
 	background-image: -moz-linear-gradient(-45deg, rgba(255,255,220,.2) 0%, transparent 100%);  
 	background-image: -o-linear-gradient(-45deg, rgba(255,255,220,.2) 0%, transparent 100%);
 	background-image: -ms-linear-gradient(-45deg, rgba(255,255,220,.2) 0%, transparent 100%);
+  }
+
+  h1.lotto-ball {
+	font-weight: bold;
+    font-size: 7.5vw;
+    line-height: 7.5vw;
+    vertical-align: middle;
+    color: red;
+    text-shadow: 3px 3px 3px #c90000;
+    margin-bottom: 0.1em;
   }
