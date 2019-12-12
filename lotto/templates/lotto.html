@@ -38,14 +38,14 @@
     <div class="section">
         <h2>예상 로또 번호는?</h2>
 
-        <h1 class="ball number"></h1>
-        <h1 class="ball number"></h1>
-        <h1 class="ball number"></h1>
-        <h1 class="ball number"></h1>
-        <h1 class="ball number"></h1>
-        <h1 class="ball number"></h1>
-        <h1 class="ball">+</h1>
-        <h1 class="ball number"></h1>
+        <h1 class="lotto-ball number"></h1>
+        <h1 class="lotto-ball number"></h1>
+        <h1 class="lotto-ball number"></h1>
+        <h1 class="lotto-ball number"></h1>
+        <h1 class="lotto-ball number"></h1>
+        <h1 class="lotto-ball number"></h1>
+        <h1 class="lotto-ball">+</h1>
+        <h1 class="lotto-ball number"></h1>
     </div>
 </div>
 {% endblock content %}
@@ -62,7 +62,7 @@
 
                 success : function(data){
                     $(data.expectation).each(function(idx, item){
-                        $('.ball.number').eq(idx).text(item);
+                        $('.lotto-ball.number').eq(idx).text(item);
                     });
                 },
 
